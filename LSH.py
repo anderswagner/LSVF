@@ -143,7 +143,7 @@ def compare(truthIndices: dict, truthDists: dict, result: dict, n: int):
             if v not in tIndices:
                 wrongNeighors += 1
 
-    print(f"Recall correctness: {((maxCorrect - wrongNeighors) / maxCorrect) * 100}%")
+    #print(f"Recall correctness: {((maxCorrect - wrongNeighors) / maxCorrect) * 100}%")
 
 if __name__ == "__main__":
 
@@ -161,26 +161,36 @@ if __name__ == "__main__":
     q = h5py.File('./Queries/public-queries-10k-hammingv2.h5', 'r')
     queries = q['hamming']
     queryPoints = [BinaryPoint().fromList(x, i) for i, x in enumerate(queries)]
-    end = print(f"Elapsed Loading queries time: {time.time() - start} seconds")
+    #end = print(f"Elapsed Loading queries time: {time.time() - start} seconds")
 
     for i in range(25):
-        print("############################")
+        #print("############################")
         # Parameters
         vectorAmount = 1 + i
         permutations = 10;
         amountOfNearestNeighbors = 10
-        queryAmount = 1000
-        print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
+        queryAmount = 1
+        #print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
 
         # Prepare dataset Bit Sampling
         start = time.time()
-        lshbs = LSHBitSampling(dataPoints, vectorAmount, permutations)
-        end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
+        lsh = LSHBitSampling(dataPoints, vectorAmount, permutations)
+        #end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
+
+        # Debug
+        #print(f"Bucket sizes: ")
+        lens = []
+        for x in range(permutations):
+            tmp = []
+            for z in lsh.buckets[x]:
+                tmp.append(str(len(lsh.buckets[x][z])))
+            lens.append(",".join(tmp))
+        print('\n'.join(lens))
 
         # Run queries
         start = time.time()
-        results = lshbs.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
-        end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
+        results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
+        #end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
         # Compare LSH with Truth
         compare(gt, td, results, amountOfNearestNeighbors)
