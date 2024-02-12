@@ -20,7 +20,7 @@ Requires python 3.10 or later (for int.bit_count() function)
     - [ ] Calculate n-nearest from bucket
 - [ ] Look into the comparison
   - [ ] We compare using indicies, but the distance from a query point to 2+ points could be the same, but have different indicies, warping the perceived recall % (Counting a correct answer as a wrong answer)
-- [ ] Run in github Actions
+- [X] Run in github Actions
   - [ ] Generate results other than console prints
 
 # End Goals
