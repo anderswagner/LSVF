@@ -1,0 +1,27 @@
+name: Default LSH Test
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+      
+      - uses: actions/setup-python@v5
+        name: Setup Python 3.12
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+    
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run and Test
+        run: python TestLSH.py

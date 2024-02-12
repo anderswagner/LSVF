@@ -2,7 +2,7 @@ import h5py
 import random
 import time
 from BinaryPoint import *
-from groundtruth import FILENAME
+from ARGS import *
 import numpy as np
 
 class LSHBitSampling:
@@ -68,7 +68,7 @@ class LSH:
         # p being the amount of permutation "layers"
         for i in range(p):
             self.buckets[i] = {}
-            for _ in range(k):
+            for _ in range(2**k):
                 # generate a random vector for the given bucket
                 x = random.randint(0, 2**1024)
                 self.buckets[i][x] = []
@@ -152,7 +152,7 @@ if __name__ == "__main__":
     dataset = f['hamming']
     dataPoints = [BinaryPoint().fromList(x, i) for i, x in enumerate(dataset)]
 
-    testFile = h5py.File(FILENAME, 'r')
+    testFile = h5py.File(GT_FILENAME, 'r')
     gt = testFile['truth_indices']
     td = testFile['distances']
 
