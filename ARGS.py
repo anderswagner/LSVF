@@ -5,7 +5,7 @@ Q_FILENAME = "./Queries/public-queries-10k-hammingv2.h5"
 NN = 10
 P = 5
 Q = 1000
-K_INC = 10
+K_INC = 5
 
 LSHBS_TEXT = """
  /$$        /$$$$$$  /$$   /$$       /$$$$$$$  /$$   /$$            /$$$$$$                                    /$$ /$$                    

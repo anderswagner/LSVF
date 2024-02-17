@@ -7,8 +7,8 @@ Requires python 3.10 or later (for int.bit_count() function)
 # TODO
 
 - [X] Check bucket sizes
-  - [ ] Min, Max and std. dev
-  - [ ] Histogram
+  - [X] Min, Max and std. dev
+  - [X] Histogram
 - [X] Check amount of buckets
 - [X] Make parameters align
 - [ ] Time different parts of the algorithm

@@ -4,9 +4,12 @@ import time
 from BinaryPoint import *
 from ARGS import *
 import numpy as np
+import matplotlib.pyplot as plt
+from util import *
 
 class LSHBitSampling:
     def __init__(self, points: list, k: int, p: int):
+        self.name = "Bit Sampling"
         self.points = points
         self.buckets = [[]] * p
         self.bitChoices = []
@@ -61,6 +64,7 @@ class LSHBitSampling:
 
 class LSH:
     def __init__(self, points: list, k: int, p: int):
+        self.name = "Distance Points"
         self.points = points
         self.buckets = [[]] * p
         self.k = k
@@ -130,21 +134,6 @@ class LSH:
             pointsToCheck.append(queryPoints[index])
         return self.query(pointsToCheck, n)
 
-def compare(truthIndices: dict, truthDists: dict, result: dict, n: int):
-    maxCorrect = n * len(result)
-    wrongNeighors = 0
-    # Check all our results
-    for k in result:
-        tIndices = truthIndices[str(k)][:n]
-        # tDists = truthDists[str(k)][:n]
-        resultArray = result[k]
-        resultIndices = resultArray[0]
-        for v in resultIndices:
-            if v not in tIndices:
-                wrongNeighors += 1
-
-    #print(f"Recall correctness: {((maxCorrect - wrongNeighors) / maxCorrect) * 100}%")
-
 if __name__ == "__main__":
 
     # Load input
@@ -181,11 +170,26 @@ if __name__ == "__main__":
         #print(f"Bucket sizes: ")
         lens = []
         for x in range(permutations):
-            tmp = []
             for z in lsh.buckets[x]:
-                tmp.append(str(len(lsh.buckets[x][z])))
-            lens.append(",".join(tmp))
-        print('\n'.join(lens))
+                lens.append(len(lsh.buckets[x][z]))
+        standardDev = np.std(lens)
+        mean = np.mean(lens)
+        mini = min(lens)
+        maxi = max(lens)
+
+        fig, (ax1, ax2) = plt.subplots(2, 1, gridspec_kw={'height_ratios': [1, 2]}, figsize=(8, 6))
+
+        ax1.hist(lens, bins=10, edgecolor='black')
+        ax1.set_title('Histogram')
+
+        bars_stats = ax2.bar(["Min", "Max", "Std Dev", "Mean"], [mini, maxi, standardDev, mean])
+        ax2.set_title(f"Stats: k={vectorAmount}, p={permutations}, LSH={lsh.name}")
+
+        for bar, value in zip(bars_stats, [mini, maxi, standardDev, mean]):
+            ax2.text(bar.get_x() + bar.get_width() / 2, value, f"{value:.2f}",
+                    ha='center', va='bottom')
+        plt.tight_layout()
+        #plt.show()
 
         # Run queries
         start = time.time()
@@ -193,7 +197,9 @@ if __name__ == "__main__":
         #end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
         # Compare LSH with Truth
-        compare(gt, td, results, amountOfNearestNeighbors)
+        r1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+        r2 = compare(gt, td, results, amountOfNearestNeighbors, True)
+        print(f"{r1}, {r2}")
 
     # Close
     q.close()

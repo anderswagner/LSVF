@@ -3,21 +3,7 @@ import time
 from BinaryPoint import *
 from LSH import LSHBitSampling, LSH
 from ARGS import *
-
-def compare(truthIndices: dict, truthDists: dict, result: dict, n: int):
-    maxCorrect = n * len(result)
-    wrongNeighors = 0
-    # Check all our results
-    for k in result:
-        tIndices = truthIndices[str(k)][:n]
-        # tDists = truthDists[str(k)][:n]
-        resultArray = result[k]
-        resultIndices = resultArray[0]
-        for v in resultIndices:
-            if v not in tIndices:
-                wrongNeighors += 1
-
-    print(f"Recall correctness: {((maxCorrect - wrongNeighors) / maxCorrect) * 100}%")
+from util import *
 
 if __name__ == "__main__":
     # Load input
@@ -58,7 +44,9 @@ if __name__ == "__main__":
         end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
         # Compare LSH with Truth
-        compare(gt, td, results, amountOfNearestNeighbors)
+        comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+        comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
+        print(f"Recall correctness: {comparison1}%. {comparison2}")
 
     print(LSHDS_TEXT)
 
@@ -82,7 +70,9 @@ if __name__ == "__main__":
         end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
         # Compare LSH with Truth
-        compare(gt, td, results, amountOfNearestNeighbors)
+        comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+        comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
+        print(f"Recall correctness: {comparison1}%. {comparison2}")
 
     # Close
     q.close()
