@@ -163,7 +163,7 @@ if __name__ == "__main__":
 
         # Prepare dataset Bit Sampling
         start = time.time()
-        lsh = LSHBitSampling(dataPoints, vectorAmount, permutations)
+        lsh = LSH(dataPoints, vectorAmount, permutations)
         #end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
         # Debug
@@ -189,7 +189,7 @@ if __name__ == "__main__":
             ax2.text(bar.get_x() + bar.get_width() / 2, value, f"{value:.2f}",
                     ha='center', va='bottom')
         plt.tight_layout()
-        #plt.show()
+        plt.show()
 
         # Run queries
         start = time.time()
