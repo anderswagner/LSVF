@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     print(LSHBS_TEXT)
 
-    for i in range(K_INC):
+    for i in range(K_START, K_START + K_INC, 1):
         print("############################")
         # Parameters
         vectorAmount = 1 + i
@@ -44,13 +44,14 @@ if __name__ == "__main__":
         end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
         # Compare LSH with Truth
-        comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+        #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
         comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
-        print(f"Recall correctness: {comparison1}%. {comparison2}")
+        #print(f"Recall correctness: {comparison1}%. {comparison2}")
+        print(f"Recall correctness: {comparison2}%")
 
     print(LSHDS_TEXT)
 
-    for i in range(K_INC):
+    for i in range(K_START, K_START + K_INC, 1):
         print("############################")
         # Parameters
         vectorAmount = 1 + i
@@ -70,9 +71,10 @@ if __name__ == "__main__":
         end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
         # Compare LSH with Truth
-        comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+        #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
         comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
-        print(f"Recall correctness: {comparison1}%. {comparison2}")
+        #print(f"Recall correctness: {comparison1}%. {comparison2}")
+        print(f"Recall correctness: {comparison2}%")
 
     # Close
     q.close()

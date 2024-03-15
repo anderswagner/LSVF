@@ -22,10 +22,12 @@ Requires python 3.10 or later (for int.bit_count() function)
   - [X] We compare using indicies, but the distance from a query point to 2+ points could be the same, but have different indicies, warping the perceived recall % (Counting a correct answer as a wrong answer)
 - [X] Run in github Actions
   - [ ] Generate results other than console prints
-
-# End Goals
-- [ ] Implement LSF
+- [ ] Look into using more numpy in general
+  - [ ] Specifically the "BinaryPoints" type so we eliminate the strings
+- [ ] Implement LSF in terms of binary hamming space
 - [ ] Implement multi-probing
+
+# Possible Goals
 - [ ] Test on multi-threaded environment
 - [ ] 1 Million dataset
 - [ ] 10 Million dataset
