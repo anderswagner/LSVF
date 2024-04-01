@@ -7,7 +7,7 @@ from BinaryPoint import *
 from util import *
 from LSHBitSampling import *
 from LSHDist import *
-from LSHDistLSF import *
+from LSVF import *
 
 if __name__ == "__main__":
 

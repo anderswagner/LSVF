@@ -1,7 +1,7 @@
 import h5py
 import time
 from BinaryPoint import *
-from LSH import LSHBitSampling, LSHDist, LSHDistLSF
+from LSH import LSHBitSampling, LSHDist, LSVF
 from ARGS import *
 from util import *
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         #print(f"Recall correctness: {comparison1}%. {comparison2}")
         print(f"Recall correctness: {comparison2}%")
 
-    print(LSHLSF_TEXT)
+    print(LSVF_TEXT)
 
     for i in range(K_START, K_START + K_INC, 1):
         print("############################")
@@ -89,13 +89,17 @@ if __name__ == "__main__":
 
         # Prepare dataset Bit Sampling
         start = time.time()
-        lsh = LSHDistLSF(dataPoints, vectorAmount, permutations)
+        lsh = LSVF(dataPoints, vectorAmount, permutations)
         end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
         # Run queries
         start = time.time()
         results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
         end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
+
+        print(f"Build time stats; Total generate hashes: {lsh.TotalBuildBuckets} | Total hash dataset: {lsh.TotalFindBestDataBucket} | Total append to bucket: {lsh.TotalAppendToBucket}")
+
+        print(f"Query time stats; Total hash and search for best bucket: {lsh.totalSearchForBucket} | Total search in buckets: {lsh.totalSearchInBucket} | Add Points: {lsh.totalAddSearchPoints} | Total rerank result: {lsh.totalReRankPoints}")
 
         # Compare LSH with Truth
         #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
