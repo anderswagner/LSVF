@@ -6,7 +6,10 @@ NN = 10
 P = 5
 Q = 1000
 K_INC = 1
-K_START = 7
+K_START = 9
+LSHBS_ENABLED = False
+LSHDS_ENABLED = False
+LSVF_ENABLED = True
 
 LSHBS_TEXT = """
  /$$        /$$$$$$  /$$   /$$       /$$$$$$$  /$$   /$$            /$$$$$$                                    /$$ /$$                    

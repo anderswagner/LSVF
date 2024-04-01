@@ -22,90 +22,93 @@ if __name__ == "__main__":
     queryPoints = [BinaryPoint().fromList(x, i) for i, x in enumerate(queries)]
     end = print(f"Elapsed Loading queries time: {time.time() - start} seconds")
 
-    print(LSHBS_TEXT)
+    if (LSHBS_ENABLED):
+        print(LSHBS_TEXT)
 
-    for i in range(K_START, K_START + K_INC, 1):
-        print("############################")
-        # Parameters
-        vectorAmount = 1 + i
-        permutations = P
-        amountOfNearestNeighbors = NN
-        queryAmount = Q
-        print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
+        for i in range(K_START, K_START + K_INC, 1):
+            print("############################")
+            # Parameters
+            vectorAmount = 1 + i
+            permutations = P
+            amountOfNearestNeighbors = NN
+            queryAmount = Q
+            print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
 
-        # Prepare dataset Bit Sampling
-        start = time.time()
-        lsh = LSHBitSampling(dataPoints, vectorAmount, permutations)
-        end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
+            # Prepare dataset Bit Sampling
+            start = time.time()
+            lsh = LSHBitSampling(dataPoints, vectorAmount, permutations)
+            end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
-        # Run queries
-        start = time.time()
-        results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
-        end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
+            # Run queries
+            start = time.time()
+            results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
+            end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
-        # Compare LSH with Truth
-        #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
-        comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
-        #print(f"Recall correctness: {comparison1}%. {comparison2}")
-        print(f"Recall correctness: {comparison2}%")
+            # Compare LSH with Truth
+            #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+            comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
+            #print(f"Recall correctness: {comparison1}%. {comparison2}")
+            print(f"Recall correctness: {comparison2}%")
 
-    print(LSHDS_TEXT)
+    if (LSHDS_ENABLED):
+        print(LSHDS_TEXT)
 
-    for i in range(K_START, K_START + K_INC, 1):
-        print("############################")
-        # Parameters
-        vectorAmount = 1 + i
-        permutations = P
-        amountOfNearestNeighbors = NN
-        queryAmount = Q
-        print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
+        for i in range(K_START, K_START + K_INC, 1):
+            print("############################")
+            # Parameters
+            vectorAmount = 1 + i
+            permutations = P
+            amountOfNearestNeighbors = NN
+            queryAmount = Q
+            print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
 
-        # Prepare dataset Bit Sampling
-        start = time.time()
-        lsh = LSHDist(dataPoints, vectorAmount, permutations)
-        end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
+            # Prepare dataset Bit Sampling
+            start = time.time()
+            lsh = LSHDist(dataPoints, vectorAmount, permutations)
+            end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
-        # Run queries
-        start = time.time()
-        results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
-        end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
+            # Run queries
+            start = time.time()
+            results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
+            end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
-        # Compare LSH with Truth
-        #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
-        comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
-        #print(f"Recall correctness: {comparison1}%. {comparison2}")
-        print(f"Recall correctness: {comparison2}%")
+            # Compare LSH with Truth
+            #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+            comparison2 = compare(gt, td, results, amountOfNearestNeighbors, True)
+            #print(f"Recall correctness: {comparison1}%. {comparison2}")
+            print(f"Recall correctness: {comparison2}%")
 
-    print(LSVF_TEXT)
+    if (LSVF_ENABLED):
+        print(LSVF_TEXT)
 
-    for i in range(K_START, K_START + K_INC, 1):
-        print("############################")
-        # Parameters
-        vectorAmount = 1 + i
-        permutations = P
-        amountOfNearestNeighbors = NN
-        queryAmount = Q
-        print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
+        for i in range(K_START, K_START + K_INC, 1):
+            print("############################")
+            # Parameters
+            vectorAmount = 1 + i
+            permutations = P
+            amountOfNearestNeighbors = NN
+            queryAmount = Q
+            print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
 
-        # Prepare dataset Bit Sampling
-        start = time.time()
-        lsh = LSVF(dataPoints, vectorAmount, permutations)
-        end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
+            # Prepare dataset Bit Sampling
+            start = time.time()
+            lsh = LSVF(dataPoints, vectorAmount, permutations)
+            end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
-        # Run queries
-        start = time.time()
-        results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
-        end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
+            # Run queries
+            start = time.time()
+            results = lsh.queryRandom(queryPoints, amountOfNearestNeighbors, queryAmount)
+            end = print(f"Elapsed LSH query time: {time.time() - start} seconds")
 
-        print(f"Build time stats; Total generate hashes: {lsh.TotalBuildBuckets} | Total hash dataset: {lsh.TotalFindBestDataBucket} | Total append to bucket: {lsh.TotalAppendToBucket}")
+            print(f"Build time stats; Total generate hashes: {lsh.TotalBuildBuckets} | Total hash dataset: {lsh.TotalFindBestDataBucket} | Total append to bucket: {lsh.TotalAppendToBucket}")
 
-        print(f"Query time stats; Total hash and search for best bucket: {lsh.totalSearchForBucket} | Total search in buckets: {lsh.totalSearchInBucket} | Add Points: {lsh.totalAddSearchPoints} | Total rerank result: {lsh.totalReRankPoints}")
+            print(f"Query time stats; Total hash and search for best bucket: {lsh.totalSearchForBucket} | Total search in buckets: {lsh.totalSearchInBucket} | Add Points: {lsh.totalAddSearchPoints} | Total rerank result: {lsh.totalReRankPoints}")
 
-        # Compare LSH with Truth
-        #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
-        comparison3 = compare(gt, td, results, amountOfNearestNeighbors, True)
-        #print(f"Recall correctness: {comparison1}%. {comparison2}")
-        print(f"Recall correctness: {comparison3}%")
+            # Compare LSH with Truth
+            #comparison1 = compare(gt, td, results, amountOfNearestNeighbors, False)
+            comparison3 = compare(gt, td, results, amountOfNearestNeighbors, True)
+            #print(f"Recall correctness: {comparison1}%. {comparison2}")
+            print(f"Recall correctness: {comparison3}%")
 
     # Close
     q.close()
