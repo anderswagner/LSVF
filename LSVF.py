@@ -4,8 +4,8 @@ import time
 from BinaryPoint import *
 
 class LSVF:
-    def __init__(self, points: list, k: int, p: int):
-        self.name = "Distance Points"
+    def __init__(self, points: list, k: int, p: int, distance_threshold: int):
+        self.name = "Voronoi Filtering"
         self.points = points
         self.buckets = [[]] * p
         self.k = k
@@ -22,19 +22,21 @@ class LSVF:
                 x = BinaryPoint().fromInt(random.randint(0, 2**1024))
                 self.buckets[i][x] = []
             # self.TotalBuildBuckets += (time.time() - tmpStart)
+            buckets = self.buckets[i].keys()
             for point in points:
                 # tmpStart = time.time()
                 bestDist = 1024
                 bestIndex = 0
                 # determine which bucket to put it in
-                for item in self.buckets[i].keys():
+                for item in buckets:
                     dist = point.hamDistPopCnt(item)
                     if dist < bestDist:
                         bestIndex = item
                         bestDist = dist
                 # self.TotalFindBestDataBucket += (time.time() - tmpStart)
                 # tmpStart = time.time()
-                self.buckets[i][bestIndex].append(point)
+                if bestDist <= distance_threshold:
+                    self.buckets[i][bestIndex].append(point)
                 # self.TotalAppendToBucket += (time.time() - tmpStart)
 
     def query(self, queryPoints: list, n: int):

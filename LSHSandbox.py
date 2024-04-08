@@ -27,18 +27,19 @@ if __name__ == "__main__":
     queryPoints = [BinaryPoint().fromList(x, i) for i, x in enumerate(queries)]
     #end = print(f"Elapsed Loading queries time: {time.time() - start} seconds")
 
-    for i in range(8, 9, 1):
+    for i in range(4, 5, 1):
         #print("############################")
         # Parameters
         vectorAmount = 1 + i
         permutations = 10;
         amountOfNearestNeighbors = 10
-        queryAmount = 1
+        queryAmount = 100
+        distanceThreshold = 485
         #print(f"NN = {amountOfNearestNeighbors}, qN = {queryAmount}, k = {vectorAmount}, p = {permutations}")
 
         # Prepare dataset Bit Sampling
         start = time.time()
-        lsh = LSHDist(dataPoints, vectorAmount, permutations)
+        lsh = LSVF(dataPoints, vectorAmount, permutations, distanceThreshold)
         #end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
         # Debug

@@ -6,10 +6,12 @@ NN = 10
 P = 5
 Q = 10000
 K_INC = 1
-K_START = 14
+K_START = 7
 LSHBS_ENABLED = True
 LSHDS_ENABLED = True
 LSVF_ENABLED = True
+
+FILTER_REMOVAL_DISTANCE = 485
 
 LSHBS_TEXT = """
  /$$        /$$$$$$  /$$   /$$       /$$$$$$$  /$$   /$$            /$$$$$$                                    /$$ /$$                    

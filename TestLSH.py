@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
             # Prepare dataset Bit Sampling
             start = time.time()
-            lsh = LSVF(dataPoints, vectorAmount, permutations)
+            lsh = LSVF(dataPoints, vectorAmount, permutations, FILTER_REMOVAL_DISTANCE)
             end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
             # Run queries
