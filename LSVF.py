@@ -16,27 +16,28 @@ class LSVF:
         # p being the amount of permutation "layers"
         for i in range(p):
             self.buckets[i] = {}
-            tmpStart = time.time()
-            for _ in range(2**k):
+            # tmpStart = time.time()
+            for indexer in range(2**k):
                 # generate a random vector for the given bucket
-                x = random.randint(0, 2**1024)
+                x = BinaryPoint().fromList(np.random.randint(0, 2**64, size=16, dtype=np.uint64), indexer) 
+                # random.randint(0, 2**1024)
+
                 self.buckets[i][x] = []
-            self.TotalBuildBuckets += (time.time() - tmpStart)
+            # self.TotalBuildBuckets += (time.time() - tmpStart)
             for point in points:
-                tmpStart = time.time()
+                # tmpStart = time.time()
                 bestDist = 1024
                 bestIndex = 0
                 # determine which bucket to put it in
                 for item in self.buckets[i].keys():
-                    rPoint = BinaryPoint().fromInt(item)
-                    dist = point.hamDistPopCnt(rPoint)
+                    dist = point.hamDistPopCnt(item)
                     if dist < bestDist:
                         bestIndex = item
                         bestDist = dist
-                self.TotalFindBestDataBucket += (time.time() - tmpStart)
-                tmpStart = time.time()
+                # self.TotalFindBestDataBucket += (time.time() - tmpStart)
+                # tmpStart = time.time()
                 self.buckets[i][bestIndex].append(point)
-                self.TotalAppendToBucket += (time.time() - tmpStart)
+                # self.TotalAppendToBucket += (time.time() - tmpStart)
 
     def query(self, queryPoints: list, n: int):
         result = {}
@@ -52,28 +53,27 @@ class LSVF:
             # for every permutation of buckets
             for pb in self.buckets:
                 # a bucket key is the point i need to compare to
-                tmpStart = time.time()
+                # tmpStart = time.time()
                 bestKey = 0
                 bestDist = 1024
                 bucketKeys = pb.keys()
                 # check all buckets for the best matching bucket for our queryPoint
                 for k in bucketKeys:
-                    kPoint = BinaryPoint().fromInt(k)
-                    dist = qp.hamDistPopCnt(kPoint)
+                    dist = qp.hamDistPopCnt(k)
                     if dist < bestDist:
                         bestKey = k
                         bestDist = dist
-                self.totalSearchForBucket += (time.time() - tmpStart)
+                # self.totalSearchForBucket += (time.time() - tmpStart)
                 # go through the bucket, add all points to searchable set
-                tmpStart = time.time()
+                # tmpStart = time.time()
                 for bp in pb[bestKey]:
                     searchablePoints.add(bp)
-                self.totalAddSearchPoints += (time.time() - tmpStart)
-            tmpStart = time.time()
+                # self.totalAddSearchPoints += (time.time() - tmpStart)
+            # tmpStart = time.time()
             for bp in searchablePoints:
                 dist = qp.hamDistPopCnt(bp)
                     # if the distance is better than our worst, see where to put the point
-                tmpStart2 = time.time()
+                # tmpStart2 = time.time()
                 if dist < worstDist:
                     for i, d in enumerate(tmpDists):
                         if dist < d:
@@ -82,10 +82,10 @@ class LSVF:
                             # put index
                             tmpIndices[i:] = bp.i, *tmpIndices[i:-1]
                             worstDist = tmpDists[-1]
-                            self.totalReRankPoints += (time.time() - tmpStart2)
+                            # self.totalReRankPoints += (time.time() - tmpStart2)
                             break
             result[qp.i] = (tmpIndices, tmpDists)
-            self.totalSearchInBucket += (time.time() - tmpStart)
+            # self.totalSearchInBucket += (time.time() - tmpStart)
         return result
 
     def queryRandom(self, queryPoints: list, n: int, amount: int):

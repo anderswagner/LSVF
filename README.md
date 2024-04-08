@@ -1,6 +1,6 @@
 # L(ocality) S(ensitive) V(oronoi) F(ilter)
 
-
+A take on LSH, resulting in a "Voronoi"-like topology with filtering and other techniques applied from FALCONN++
 
 ## LSH Research
 
@@ -29,9 +29,11 @@ Requires python 3.10 or later (for int.bit_count() function)
 - [X] Run in github Actions
   - [ ] Generate results other than console prints
 - [ ] Look into using more numpy in general
-  - [ ] Specifically the "BinaryPoints" type so we eliminate the strings
+  - [X] Specifically the "BinaryPoints" type so we eliminate the strings
 - [ ] Implement LSF in terms of binary hamming space
 - [ ] Implement multi-probing
+- [ ] Do embedding onto unit-sphere
+  - [ ] Allowing for Cross-polytope LSH
 - [X] Name the algorithm
 
 # Possible Goals

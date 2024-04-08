@@ -1,9 +1,11 @@
 import h5py
 import time
 from BinaryPoint import *
-from LSH import LSHBitSampling, LSHDist, LSVF
 from ARGS import *
 from util import *
+from LSHBitSampling import *
+from LSHDist import *
+from LSVF import *
 
 if __name__ == "__main__":
     # Load input
