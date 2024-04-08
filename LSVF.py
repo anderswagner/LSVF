@@ -17,11 +17,9 @@ class LSVF:
         for i in range(p):
             self.buckets[i] = {}
             # tmpStart = time.time()
-            for indexer in range(2**k):
+            for _ in range(2**k):
                 # generate a random vector for the given bucket
-                x = BinaryPoint().fromList(np.random.randint(0, 2**64, size=16, dtype=np.uint64), indexer) 
-                # random.randint(0, 2**1024)
-
+                x = BinaryPoint().fromInt(random.randint(0, 2**1024))
                 self.buckets[i][x] = []
             # self.TotalBuildBuckets += (time.time() - tmpStart)
             for point in points:
@@ -56,9 +54,8 @@ class LSVF:
                 # tmpStart = time.time()
                 bestKey = 0
                 bestDist = 1024
-                bucketKeys = pb.keys()
                 # check all buckets for the best matching bucket for our queryPoint
-                for k in bucketKeys:
+                for k in pb.keys():
                     dist = qp.hamDistPopCnt(k)
                     if dist < bestDist:
                         bestKey = k

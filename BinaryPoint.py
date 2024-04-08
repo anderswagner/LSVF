@@ -2,33 +2,38 @@ import numpy as np
 
 class BinaryPoint:
     def __init__(self):
-        self.arr = np.ndarray(shape=(16,), dtype=np.uint64)
+        self.x = 0
 
-    def fromList(self, inputList: np.ndarray, i: int):
+    def fromList(self, inputList: list, i: int):
         self.i = i
-        self.arr = inputList
+        tmp = ""
+        for y in inputList:
+            b = bin(y)[2:]
+            b = '0' * (64-len(b)) + b
+            tmp += b
+        self.x = int(tmp, 2)
         return self
 
-    def fromInt(self, x: int):        
-        binary_str = format(x, "01024b")
-        chunks = [binary_str[i : i + 64] for i in range(0, 1024, 64)]
-        chunk_integers = np.array([int(chunk, 2) for chunk in chunks], dtype=np.uint64)
-        self.arr = chunk_integers
+    def fromInt(self, x: int):
+        self.x = x
         return self
 
     def hamDistPopCnt(self, other: 'BinaryPoint') -> int:
-        return hamDistNP(self.arr, other.arr)
-    
-    def bitSample(self, bits: list) -> int:
-        unpackedView = np.unpackbits(self.arr.view(np.uint8))
-        l = len(bits)
-        result = []
-        for b in bits:
-            result.append(unpackedView[b])
-        paddedResult = np.pad(result, (0,64-l), 'constant')
-        return np.packbits(paddedResult).view(np.uint64)[0]
+        return hamDistPopCount(self.x, other.x)
 
-def hamDistNP(left: np.ndarray, right: np.ndarray) -> int:
-    xorCalc = left ^ right
-    bits = np.unpackbits(xorCalc.view(np.uint8)).reshape((-1,8))
-    return np.sum(np.sum(bits, axis=1))
+    def bitSample(self, bits: list) -> int:
+        bitString = bin(self.x)[2:]
+        result = ""
+        for b in bits:
+            if len(bitString) > b:
+                if bitString[b] == '1':
+                    result += "1"
+                else:
+                    result += "0"
+            else:
+                result += "0"
+        return int(result, 2)
+
+def hamDistPopCount(a: int, b : int) -> int:
+    xor = a ^ b
+    return xor.bit_count()
