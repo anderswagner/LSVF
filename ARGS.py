@@ -4,9 +4,9 @@ Q_FILENAME = "./Queries/public-queries-10k-hammingv2.h5"
 
 NN = 10
 P = 5
-Q = 1000
+Q = 10000
 K_INC = 1
-K_START = 7
+K_START = 9
 LSHBS_ENABLED = True
 LSHDS_ENABLED = True
 LSVF_ENABLED = True
