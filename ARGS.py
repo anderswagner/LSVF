@@ -3,15 +3,16 @@ DS_FILENAME = "./Datasets/laion2B-en-hammingv2-n=100K.h5"
 Q_FILENAME = "./Queries/public-queries-10k-hammingv2.h5"
 
 NN = 10
-P = 5
-Q = 10000
-K_INC = 1
-K_START = 7
+P_INC = 4
+P_START = 1
+Q = 1000
+K_INC = 5
+K_START = 2
 LSHBS_ENABLED = True
 LSHDS_ENABLED = True
 LSVF_ENABLED = True
 
-FILTER_REMOVAL_DISTANCE = 485
+FILTER_REMOVAL_DISTANCE = 480
 
 LSHBS_TEXT = """
  /$$        /$$$$$$  /$$   /$$       /$$$$$$$  /$$   /$$            /$$$$$$                                    /$$ /$$                    
