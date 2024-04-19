@@ -8,11 +8,11 @@ P_START = 1
 Q = 1000
 K_INC = 5
 K_START = 2
-LSHBS_ENABLED = True
-LSHDS_ENABLED = True
+LSHBS_ENABLED = False
+LSHDS_ENABLED = False
 LSVF_ENABLED = True
 
-FILTER_REMOVAL_DISTANCE = 480
+FILTER_REMOVAL_DISTANCE = 485
 
 LSHBS_TEXT = """
  /$$        /$$$$$$  /$$   /$$       /$$$$$$$  /$$   /$$            /$$$$$$                                    /$$ /$$                    
