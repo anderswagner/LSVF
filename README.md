@@ -34,6 +34,7 @@ Requires python 3.10 or later (for int.bit_count() function)
 - [ ] Do embedding onto unit-sphere
   - [ ] Allowing for Cross-polytope LSH
 - [X] Name the algorithm
+- [ ] Combination buckets
 
 # Possible Goals
 - [ ] Test on multi-threaded environment
@@ -42,3 +43,20 @@ Requires python 3.10 or later (for int.bit_count() function)
 - [ ] 100 Million dataset
 - [ ] Translate to C++
   - [ ] Use SIMD
+
+# Prioritized
+- [ ] Embedding + falconn++
+- [ ] Cutaway inside buckets
+- [ ] Related works study
+- [ ] Theoretical foundations
+
+- [ ] Combinatorics
+- [ ] Larger datasets
+- [ ] Multi-probing
+
+# Notes for writing
+- [ ] Pseudo algorithm
+- [ ] Theoretical questions
+- [ ] Related work
+  - [ ] Look into the entire design space and approaches
+- [ ] Experiment with x,y 0-D and plot distance (full run through the LSH)
