@@ -7,7 +7,7 @@ class LSVF:
     def __init__(self, points: list, k: int, p: int, distance_threshold: int):
         self.name = "Voronoi Filtering"
         self.points = points
-        self.buckets = [[]] * p
+        self.buckets = [[] for _ in range(p)]
         self.k = k
         self.p = p
         self.TotalBuildBuckets = 0.0
@@ -17,7 +17,7 @@ class LSVF:
         for i in range(p):
             self.buckets[i] = {}
             # tmpStart = time.time()
-            for _ in range(2**k):
+            for _ in range(k):
                 # generate a random vector for the given bucket
                 x = BinaryPoint().fromInt(random.randint(0, 2**1024))
                 self.buckets[i][x] = []

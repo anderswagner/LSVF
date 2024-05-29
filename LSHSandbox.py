@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
         # Prepare dataset Bit Sampling
         start = time.time()
-        lsh = LSVF(dataPoints, vectorAmount, permutations, distanceThreshold)
+        lsh = LSVF(dataPoints, 2**vectorAmount, permutations, distanceThreshold)
         #end = print(f"Elapsed LSH construction time: {time.time() - start} seconds")
 
         # Debug
